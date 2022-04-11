@@ -32,7 +32,8 @@ const prepareDOMElements = () => {
 const prepareDOMEvents = () => {
 	addBtn.addEventListener('click', addNewTodo)
 	ulList.addEventListener('click', checkClick)
-    popupCloseBtn.addEventListener('click', closePopUp)
+	popupCloseBtn.addEventListener('click', closePopUp)
+	popupAddBtn.addEventListener('click', changeToDoText)
 }
 
 const addNewTodo = () => {
@@ -73,20 +74,33 @@ const checkClick = e => {
 	if (e.target.matches('.complete')) {
 		e.target.closest('li').classList.toggle('completed')
 	} else if (e.target.matches('.edit')) {
-		editTodo()
+		editTodo(e)
 	} else if (e.target.matches('.delete')) {
 		console.log('delete')
 	}
 }
 
-const editTodo = () => {
-    popup.style.display = 'flex'
+const editTodo = e => {
+	todoToEdit = e.target.closest('li')
+
+	popupInput.value = todoToEdit.firstChild.textContent
+
+	popup.style.display = 'flex'
 }
 
 const closePopUp = () => {
-    popup.style.display = 'none'
+	popup.style.display = 'none'
+    popupInfo.textContent = ''
 }
 
+const changeToDoText = () => {
+	if (popupInput.value !== '') {
+		todoToEdit.firstChild.textContent = popupInput.value
+        popup.style.display = 'none'
+        popupInfo.textContent = ''
+	} else {
+        popupInfo.textContent = 'Musisz podać jakąś treść'
+    }
+}
 
 document.addEventListener('DOMContentLoaded', main)
-
