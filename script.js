@@ -31,6 +31,13 @@ const prepareDOMElements = () => {
 
 const prepareDOMEvents = () => {
 	addBtn.addEventListener('click', addNewTodo)
+	window.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+          addNewTodo()
+        }
+      });
+
+
 	ulList.addEventListener('click', checkClick)
 	popupCloseBtn.addEventListener('click', closePopUp)
 	popupAddBtn.addEventListener('click', changeToDoText)
@@ -112,5 +119,8 @@ const deleteTodo = e => {
 		erroInfo.textContent = 'Brak zadań na liście.'
 	}
 }
+
+
+
 
 document.addEventListener('DOMContentLoaded', main)
