@@ -76,7 +76,7 @@ const checkClick = e => {
 	} else if (e.target.matches('.edit')) {
 		editTodo(e)
 	} else if (e.target.matches('.delete')) {
-		console.log('delete')
+		deleteTodo(e)
 	}
 }
 
@@ -90,17 +90,27 @@ const editTodo = e => {
 
 const closePopUp = () => {
 	popup.style.display = 'none'
-    popupInfo.textContent = ''
+	popupInfo.textContent = ''
 }
 
 const changeToDoText = () => {
 	if (popupInput.value !== '') {
 		todoToEdit.firstChild.textContent = popupInput.value
-        popup.style.display = 'none'
-        popupInfo.textContent = ''
+		popup.style.display = 'none'
+		popupInfo.textContent = ''
 	} else {
-        popupInfo.textContent = 'Musisz podać jakąś treść'
-    }
+		popupInfo.textContent = 'Musisz podać jakąś treść'
+	}
+}
+
+const deleteTodo = e => {
+	e.target.closest('li').remove()
+
+	const allTodos = ulList.querySelectorAll('li')
+
+	if (allTodos.length === 0) {
+		erroInfo.textContent = 'Brak zadań na liście.'
+	}
 }
 
 document.addEventListener('DOMContentLoaded', main)
